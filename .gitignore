@@ -71,6 +71,7 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/_env/
 
 # PyBuilder
 target/
@@ -134,3 +135,18 @@ dmypy.json
 .pyre/
 
 node_modules/
+
+coverage/
+
+# junit xml for test results
+test_results
+
+# @pyscript/core npm artifacts
+core/test-results/*
+core/core.*
+core/dist
+core/dist.zip
+core/src/plugins.js
+core/src/stdlib/pyscript.js
+core/src/3rd-party/*
+!core/src/3rd-party/READMEmd

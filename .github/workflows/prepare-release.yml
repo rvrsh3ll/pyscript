@@ -1,0 +1,71 @@
+name: "Prepare Release"
+
+on:
+    push:
+        tags:
+            - "[0-9][0-9][0-9][0-9].[0-9][0-9].[0-9]+" # YYYY.MM.MICRO
+
+defaults:
+    run:
+        working-directory: ./core
+
+jobs:
+    prepare-release:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Install node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 20.x
+
+            - name: Python venv
+              run: python -m venv env
+
+            - name: Activate Python
+              run: source env/bin/activate
+
+            - name: Update pip
+              run: pip install --upgrade pip
+
+            - name: Install PyMinifier
+              run: pip install --ignore-requires-python python-minifier
+
+            - name: Install Setuptools
+              run: pip install setuptools
+
+            - name: Cache node modules
+              uses: actions/cache@v4
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  # npm cache files are stored in `~/.npm` on Linux/macOS
+                  path: ~/.npm
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - name: NPM Install
+              run: npm install && npx playwright install chromium
+
+            - name: Build
+              run: npm run build
+
+            - name: Generate index.html
+              working-directory: .
+              run: sed -e 's#_PATH_#./#' -e 's#_DOC_VERSION_#latest#' -e 's#_TAG_VERSION_##' -e 's#_VERSION_#latest#' ./public/index.html > ./core/dist/index.html
+
+            - name: Zip dist folder
+              run: zip -r -q ./build.zip ./dist
+
+            - name: Prepare Release
+              uses: softprops/action-gh-release@v2
+              with:
+                  draft: true
+                  prerelease: true
+                  generate_release_notes: true
+                  files: ./build.zip

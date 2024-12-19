@@ -1,51 +1,85 @@
 # PyScript
 
-## What is PyScript
+## PyScript is an open source platform for Python in the browser.
 
-### tl;dr
-PyScript is a Pythonic alternative to Scratch, JSFiddle or other "easy to use" programming frameworks, making the web a friendly, hackable, place where anyone can author interesting and interactive applications.
+Using PyScript is as simple as:
 
-To get started see [GETTING-STARTED](GETTING-STARTED.md).
-
-For examples see [the pyscript folder](pyscriptjs).
-
-### Longer Version
-PyScript is a meta project that aims to combine multiple open technologies to create a framework for users to use Python (and other languages) to create sophisticated applications in the browser. It highly integrates with the way the DOM works in the browser and allows users to add logic, in Python, in a way that feels natural to web as well as Python developers.
-
-## Try PyScript
-
-To try PyScript, import the appropriate pyscript files to your html page with:
 ```html
-<link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>PyScript!</title>
+        <link
+            rel="stylesheet"
+            href="https://pyscript.net/snapshots/2024.9.2/core.css"
+        />
+        <script
+            type="module"
+            src="https://pyscript.net/snapshots/2024.9.2/core.js"
+        ></script>
+    </head>
+    <body>
+        <!-- Use MicroPython to evaluate some Python -->
+        <script type="mpy" terminal>
+            print("Hello, world!")
+        </script>
+    </body>
+</html>
 ```
-At that point, you can then use PyScript components in your html page. PyScript currently implements the following elements:
 
-* `<py-script>`: that can be used to define python code that is executable within the web page. The element itself is not rendered to the page and only used to add logic
-* `<py-repl>`: creates a REPL component that is rendered to the page as a code editor and allows users to write code that can be executed
+PyScript enables the creation of rich Python applications in the browser using
+[Pyodide](https://pyodide.org/en/stable/) (a version of
+[CPython](https://python.org/)), [MicroPython](https://micropython.org/),
+[WASM](https://webassembly.org/), and modern web technologies. It means Python
+now runs anywhere a browser runs: desktop, laptop, mobile, tablet, or any other
+browser enabled device.
 
-Check out the [pyscriptjs/examples](pyscriptjs/examples) folder for more examples on how to use it, all you need to do is open them in Chrome.
+To start building, read the
+[Beginning PyScript tutorial](https://docs.pyscript.net/latest/beginning-pyscript/).
 
-## How to Contribute
+For example applications, see [here](https://pyscript.com/@examples).
 
-To contribute:
+Other useful resources:
 
-* clone the repo `git clone https://github.com/pyscript/pyscript`
-* cd into the main project folder with `cd pyscriptjs`
-* install the dependencies with `npm install` - make sure to use nodejs version >= 16
-* run `npm run dev` to build and run the dev server. This will also watch for changes and rebuild when a file is saved
+-   Our [Home Page](https://pyscript.net/) as an open source project.
+-   The [official technical docs](https://docs.pyscript.net/).
+-   A [YouTube channel](https://www.youtube.com/@PyScriptTV) with helpful videos
+    and community content.
+-   A free-to-use [online IDE](https://pyscript.com/) for trying PyScript.
+-   Our community [Discord Channel](https://discord.gg/BYB2kvyFwm), to keep in
+    touch .
 
-## Resources
+Every Tuesday at 15:30 UTC there is the _PyScript Community Call_ on zoom,
+where we can talk about PyScript development in the open. Most of the
+maintainers regularly participate in the call, and everybody is welcome to
+join. This meeting is recorded and uploaded to our YouTube channel.
 
-* [Discussion board](https://community.anaconda.cloud/c/tech-topics/pyscript)
-* [Home Page](https://pyscript.net/)
-* [Blog Post](https://engineering.anaconda.com/2022/04/welcome-pyscript.html)
+Every other Thursday at 16:00 UTC there is the _PyScript FUN_ call: the focus
+of this call is to share fun projects, goofy hacks or clever uses of PyScript.
+It's a supportive, energetic and entertaining meeting. This meeting is also
+recorded and uploaded to our YouTube channel.
 
-## Notes
+For more details on how to join the calls and up to date schedule, consult the
+official calendar:
 
-* This is an extremely experimental project, so expect things to break!
-* PyScript has been only tested on Chrome, at the moment.
+-   [Google calendar](https://calendar.google.com/calendar/u/0/embed?src=d3afdd81f9c132a8c8f3290f5cc5966adebdf61017fca784eef0f6be9fd519e0@group.calendar.google.com&ctz=UTC) in UTC time;
+-   [iCal format](https://calendar.google.com/calendar/ical/d3afdd81f9c132a8c8f3290f5cc5966adebdf61017fca784eef0f6be9fd519e0%40group.calendar.google.com/public/basic.ics).
+
+## Contribute
+
+For technical details of the code, please see the [README](core/README.md) in
+the `core` directory.
+
+Read the [contributing guide](https://docs.pyscript.net/latest/contributing/)
+to learn about our development process, reporting bugs and improvements,
+creating issues and asking questions.
+
+Check out the [development process](https://docs.pyscript.net/latest/developers/)
+documentation for more information on how to setup your development environment.
 
 ## Governance
 
-The [PyScript organization governance](https://github.com/pyscript/governance) is documented in a separate repository.
+The [PyScript organization governance](https://github.com/pyscript/governance)
+is documented in a separate repository.

@@ -1,0 +1,46 @@
+# This is the configuration for pre-commit, a local framework for managing pre-commit hooks
+#   Check out the docs at: https://pre-commit.com/
+ci:
+    #skip: [eslint]
+    autoupdate_schedule: monthly
+
+default_stages: [pre-commit]
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v5.0.0
+      hooks:
+          - id: check-builtin-literals
+          - id: check-case-conflict
+          - id: check-docstring-first
+          - id: check-executables-have-shebangs
+          - id: check-json
+            exclude: tsconfig\.json
+          - id: check-toml
+            exclude: bad\.toml
+          - id: check-xml
+          - id: check-yaml
+          - id: detect-private-key
+          - id: end-of-file-fixer
+            exclude: core/dist|\.min\.js$
+          - id: trailing-whitespace
+
+    - repo: https://github.com/psf/black
+      rev: 24.10.0
+      hooks:
+          - id: black
+            args: ["-l", "88", "--skip-string-normalization"]
+
+    - repo: https://github.com/codespell-project/codespell
+      rev: v2.3.0
+      hooks:
+          - id: codespell # See 'pyproject.toml' for args
+            exclude: \.js\.map$
+            additional_dependencies:
+                - tomli
+
+    - repo: https://github.com/hoodmane/pyscript-prettier-precommit
+      rev: "v3.0.0-alpha.6"
+      hooks:
+          - id: prettier
+            exclude: core/test|core/dist|core/types|core/src/stdlib/pyscript.js|pyscript\.sw/|core/src/3rd-party
+            args: [--tab-width, "4"]
